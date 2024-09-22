@@ -4,7 +4,7 @@ An image sharing site.
 
 ## Description
 
-This is a site where you can upload images under your own profile. It offers the ability to have others like your images and see what you'e all about!
+This is a site where you can upload images under your own profile. It offers the ability to have others like your images and see what you're all about! 
 
 ## Tech Stack
 
