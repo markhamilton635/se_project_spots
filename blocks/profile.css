@@ -21,6 +21,7 @@
   font-weight: 500;
   font-size: 32px;
   line-height: 1;
+  color: #212121;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
@@ -36,7 +37,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   max-width: 420px;
-  opacity: 70%;
+  color: #212121b2;
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
@@ -52,6 +53,9 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 1;
+  color: #212121;
+  cursor: url("../images/cursor.svg"), auto;
+  transition: 1s ease;
 }
 .profile__edit-btn:hover {
   opacity: 100%;
@@ -70,6 +74,8 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  cursor: url("../images/cursor.svg"), auto;
+  transition: 1s ease;
 }
 .profile__add-btn:hover {
   opacity: 80%;
