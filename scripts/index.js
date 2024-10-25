@@ -114,8 +114,7 @@ function handleAddCardSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   closeModal(cardModal);
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
+  evt.target.reset();
 }
 
 // Event Handlers
