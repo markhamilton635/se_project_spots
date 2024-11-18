@@ -107,6 +107,18 @@
   border-radius: 8px;
   border: 1px solid #21212166;
 }
+
+.modal__input_type_error {
+  border: 1px solid #ff0000b2;
+}
+
+.modal__error {
+  color: #ff0000b2;
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: 500;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
 .modal__submit-btn {
   width: 156px;
   background-color: rgba(33, 33, 33, 1);
@@ -114,6 +126,9 @@
   border: none;
   color: #fcf5e5;
   padding: 18px 0;
+}
+.modal__submit-btn_type_disabled {
+  opacity: 50%;
 }
 @media screen and (max-width: 627px) {
   .modal {

@@ -47,6 +47,7 @@ const editModalDescriptionInput = editModal.querySelector(
 );
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
+const cardModalSaveBtn = cardModal.querySelector(".modal__submit-btn");
 const cardModalCloseBtn = cardModal.querySelector(".modal__close-btn");
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = previewModal.querySelector(".modal__image");
@@ -93,13 +94,26 @@ function getCardElement(data) {
 
   return cardElement;
 }
+// Escape key function
+
+function handleEscapeKey(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+      document.removeEventListener("keydown", handleEscapeKey);
+    }
+  }
+}
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscapeKey);
 }
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
@@ -115,6 +129,7 @@ function handleAddCardSubmit(evt) {
   cardsList.prepend(cardElement);
   closeModal(cardModal);
   evt.target.reset();
+  disableButton(cardModalSaveBtn, settings);
 }
 
 // Event Handlers
@@ -123,6 +138,10 @@ profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
   openModal(editModal);
+  resetValidation(editFormElement, [
+    editModalNameInput,
+    editModalDescriptionInput,
+  ]);
 });
 
 modalPreviewCloseButton.addEventListener("click", () => {
@@ -145,4 +164,13 @@ cardModalCloseBtn.addEventListener("click", () => {
 initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
   cardsList.prepend(cardElement);
+});
+
+// overlay click function
+[editModal, cardModal, previewModal].forEach((modal) => {
+  modal.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal_opened")) {
+      closeModal(modal);
+    }
+  });
 });
