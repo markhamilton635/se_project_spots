@@ -24,10 +24,12 @@
   font-size: 20px;
   line-height: 1.2;
   color: #212121;
+  padding-bottom: 2px;
 }
 
 .card__like-btn {
   background-image: url(../images/heart.svg);
+  background-repeat: no-repeat;
   width: 23px;
   height: 20px;
   border: none;

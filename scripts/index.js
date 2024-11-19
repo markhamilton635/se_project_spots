@@ -101,7 +101,6 @@ function handleEscapeKey(evt) {
     const openedModal = document.querySelector(".modal_opened");
     if (openedModal) {
       closeModal(openedModal);
-      document.removeEventListener("keydown", handleEscapeKey);
     }
   }
 }
