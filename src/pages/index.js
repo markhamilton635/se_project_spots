@@ -143,6 +143,19 @@ function handleAddCardSubmit(evt) {
   evt.target.reset();
   disableButton(cardModalSaveBtn, settings);
 }
+//avatar submit handler function
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+  console.log(avatarInput.value);
+  api
+    .editAvatarInfo(avatarInput.value)
+    .then((data) => {
+      avatarInput.value = data.avatar;
+    })
+    .catch(console.error);
+  closeModal(avatarModal);
+  evt.target.reset();
+}
 
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
@@ -172,9 +185,11 @@ cardModalCloseBtn.addEventListener("click", () => {
   closeModal(cardModal);
 });
 
+// avatar stuff
 avatarModalBtn.addEventListener("click", () => {
   openModal(avatarModal);
 });
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 avatarModalCloseBtn.addEventListener("click", () => {
   closeModal(avatarModal);
 });
