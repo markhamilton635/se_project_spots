@@ -124,12 +124,12 @@
     position: absolute;
     width: 23.34px;
     height: 23.34px;
-    gap: 8px;
+    gap: 0px;
     border-radius: 6px;
     left: 52px;
     top: 52px;
     border: none;
-    padding: 4px;
+    padding: 0px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,5 +1,10 @@
 import "./index.css";
-import { enableValidation, settings } from "../scripts/validation.js";
+import {
+  enableValidation,
+  settings,
+  disableButton,
+  resetValidation,
+} from "../scripts/validation.js";
 import Api from "../utils/Api.js";
 
 const api = new Api({
