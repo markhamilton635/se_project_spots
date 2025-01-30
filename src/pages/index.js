@@ -139,19 +139,25 @@ function handleEditFormSubmit(evt) {
     .catch(console.error);
 }
 
+// Add card API
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
-  const cardElement = getCardElement(inputValues);
-  cardsList.prepend(cardElement);
-  closeModal(cardModal);
-  evt.target.reset();
+  const name = cardNameInput.value;
+  const link = cardLinkInput.value;
   disableButton(cardModalSaveBtn, settings);
+  api
+    .addCard({ name, link })
+    .then((data) => {
+      const cardElement = getCardElement(data);
+      cardsList.prepend(cardElement);
+      closeModal(cardModal);
+      evt.target.reset();
+    })
+    .catch(console.error);
 }
 //avatar submit handler function
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  console.log(avatarInput.value);
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {

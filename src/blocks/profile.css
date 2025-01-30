@@ -118,6 +118,7 @@
     position: relative;
     width: 80px;
     height: 80px;
+    margin-right: 0px;
   }
   .profile__avatar-btn {
     visibility: visible;
