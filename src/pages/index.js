@@ -109,7 +109,7 @@ function handleDeleteSubmit(evt) {
 
 deleteForm.addEventListener("submit", handleDeleteSubmit);
 
-// Like button functionality HERE
+// Like button functionality
 
 function handleLike(evt, id) {
   const isLiked = evt.target.classList.contains("card__like-btn_liked");
@@ -185,6 +185,10 @@ function handleEditProfileSubmit(evt) {
     })
     .catch(console.error)
     .finally(() => {
+      disableButton(
+        editModal.querySelector(settings.submitButtonSelector),
+        settings
+      );
       setButtonText(submitBtn, false);
     });
 }
@@ -212,27 +216,29 @@ function handleAddCardSubmit(evt) {
 }
 //avatar submit handler function
 function handleAvatarSubmit(evt) {
-  // THIS NEEDS A LOADING
   const submitBtn = evt.submitter;
   setButtonText(submitBtn, true);
   evt.preventDefault();
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
+      profileAvatar.src = data.avatar;
       avatarInput.value = data.avatar;
     })
     .catch(console.error)
     .finally(() => {
       setButtonText(submitBtn, false);
+      evt.target.reset();
+      disableButton(avatarModalSaveBtn, settings);
     });
   closeModal(avatarModal);
-  evt.target.reset();
 }
 
 profileEditButton.addEventListener("click", () => {
+  openModal(editModal);
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  openModal(editModal);
+  editFormElement.reset();
   resetValidation(
     editFormElement,
     [editModalNameInput, editModalDescriptionInput],
@@ -257,7 +263,7 @@ cardModalCloseBtn.addEventListener("click", () => {
   closeModal(cardModal);
 });
 
-// avatar stuff
+// avatar
 avatarModalBtn.addEventListener("click", () => {
   openModal(avatarModal);
 });
@@ -266,12 +272,14 @@ avatarModalCloseBtn.addEventListener("click", () => {
   closeModal(avatarModal);
 });
 
-[editModal, cardModal, previewModal].forEach((modal) => {
-  modal.addEventListener("click", (e) => {
-    if (e.target.classList.contains("modal_opened")) {
-      closeModal(modal);
-    }
-  });
-});
+[editModal, cardModal, previewModal, avatarModal, deleteModal].forEach(
+  (modal) => {
+    modal.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal_opened")) {
+        closeModal(modal);
+      }
+    });
+  }
+);
 
 enableValidation(settings);
