@@ -28,6 +28,16 @@
   position: relative;
   border-radius: 8px;
 }
+
+.modal__container_delete {
+  width: 630px;
+}
+.modal__form_delete {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .modal__content_type_preview {
   padding: 0;
   position: relative;
@@ -58,7 +68,6 @@
   top: 0px;
   opacity: 1;
 }
-
 .modal__close-btn:hover {
   opacity: 100%;
 }
@@ -85,6 +94,9 @@
   font-weight: 500;
   font-size: 32px;
   line-height: 1;
+}
+.modal__title_delete {
+  font-size: 24px;
 }
 .modal__label {
   display: flex;
@@ -128,10 +140,30 @@
   color: #fcf5e5;
   padding: 18px 0;
   cursor: url("../images/cursor.svg"), auto;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
 }
+
+.modal__submit-btn_delete {
+  background-color: #ff6565;
+  color: #212121;
+}
+.modal__submit-btn_delete:hover {
+  background-color: #ff3333;
+}
+.modal__submit-btn_cancel {
+  background-color: white;
+  color: black;
+  border: solid;
+}
+.modal__submit-btn_cancel:hover {
+  background-color: black;
+  color: white;
+}
+
 .modal__submit-btn_type_disabled {
   opacity: 50%;
 }
+
 @media screen and (max-width: 627px) {
   .modal {
     padding: 10px;
@@ -139,9 +171,28 @@
   .modal__container {
     padding: 12px;
   }
+  .modal__container_delete {
+    width: 300px;
+    gap: 20px;
+  }
+  .modal__form_delete {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .modal__title {
     font-size: 20px;
     margin: 10px 0 34px;
+  }
+  .modal__title_delete {
+    font-size: 20px;
+    width: 276px;
+    height: 48px;
+    text-align: center;
+    margin-bottom: 20px;
   }
   .modal__close-btn {
     top: 12px;
@@ -156,12 +207,24 @@
   .modal__submit-btn {
     width: 100%;
   }
+  .modal__submit-btn_delete {
+    background-color: #ff6565;
+    color: #212121;
+    width: 156px;
+    height: 52px;
+  }
+
+  .modal__submit-btn_cancel {
+    background-color: white;
+    color: black;
+    border: solid;
+    width: 156px;
+    height: 52px;
+  }
   .modal__close-btn_type_preview {
     position: absolute;
     right: 0px;
     top: -50px;
-  }
-  .modal__content_type_preview {
   }
   .modal__image {
     max-width: 100%;
