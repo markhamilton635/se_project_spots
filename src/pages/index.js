@@ -48,11 +48,11 @@ const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
 const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 
 // Edit form elements
-const editModal = document.querySelector("#edit-modal");
-const editFormElement = editModal.querySelector(".modal__form");
-const modalCloseButton = editModal.querySelector(".modal__close-btn");
-const editModalNameInput = editModal.querySelector("#profile-name-input");
-const editModalDescriptionInput = editModal.querySelector(
+const profileModal = document.querySelector("#edit-modal");
+const profileForm = profileModal.querySelector(".modal__form");
+const profileCloseBtn = profileModal.querySelector(".modal__close-btn");
+const editModalNameInput = profileModal.querySelector("#profile-name-input");
+const editModalDescriptionInput = profileModal.querySelector(
   "#profile-description-input"
 );
 
@@ -181,14 +181,11 @@ function handleEditProfileSubmit(evt) {
     .then((data) => {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
-      closeModal(editModal);
+      closeModal(profileModal);
+      disableButton(submitBtn, settings);
     })
     .catch(console.error)
     .finally(() => {
-      disableButton(
-        editModal.querySelector(settings.submitButtonSelector),
-        settings
-      );
       setButtonText(submitBtn, false);
     });
 }
@@ -200,13 +197,14 @@ function handleAddCardSubmit(evt) {
   evt.preventDefault();
   const name = cardNameInput.value;
   const link = cardLinkInput.value;
-  disableButton(cardModalSaveBtn, settings);
+
   api
     .addCard({ name, link })
     .then((data) => {
       const cardElement = getCardElement(data);
       cardsList.prepend(cardElement);
       closeModal(cardModal);
+      disableButton(cardModalSaveBtn, settings);
       evt.target.reset();
     })
     .catch(console.error)
@@ -223,24 +221,20 @@ function handleAvatarSubmit(evt) {
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
-      avatarInput.value = data.avatar;
-    })
-    .catch(console.error)
-    .finally(() => {
       setButtonText(submitBtn, false);
       evt.target.reset();
       disableButton(avatarModalSaveBtn, settings);
-    });
+    })
+    .catch(console.error);
   closeModal(avatarModal);
 }
 
 profileEditButton.addEventListener("click", () => {
-  openModal(editModal);
+  openModal(profileModal);
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  editFormElement.reset();
   resetValidation(
-    editFormElement,
+    profileForm,
     [editModalNameInput, editModalDescriptionInput],
     settings
   );
@@ -249,11 +243,11 @@ profileEditButton.addEventListener("click", () => {
 modalPreviewCloseButton.addEventListener("click", () => {
   closeModal(previewModal);
 });
-modalCloseButton.addEventListener("click", () => {
-  closeModal(editModal);
+profileCloseBtn.addEventListener("click", () => {
+  closeModal(profileModal);
 });
 
-editFormElement.addEventListener("submit", handleEditProfileSubmit);
+profileForm.addEventListener("submit", handleEditProfileSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 
 profileAddButton.addEventListener("click", () => {
@@ -271,11 +265,18 @@ avatarForm.addEventListener("submit", handleAvatarSubmit);
 avatarModalCloseBtn.addEventListener("click", () => {
   closeModal(avatarModal);
 });
-
-[editModal, cardModal, previewModal, avatarModal, deleteModal].forEach(
+document
+  .querySelector("#delete-modal .modal__close-btn")
+  .addEventListener("click", () => {
+    closeModal(deleteModal);
+  });
+[profileModal, cardModal, previewModal, avatarModal, deleteModal].forEach(
   (modal) => {
     modal.addEventListener("click", (e) => {
-      if (e.target.classList.contains("modal_opened")) {
+      if (
+        e.target.classList.contains("modal_opened") ||
+        e.target.classList.contains("modal__submit-btn_cancel")
+      ) {
         closeModal(modal);
       }
     });
